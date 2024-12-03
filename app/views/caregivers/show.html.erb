@@ -1,0 +1,6 @@
+<h1><%= @caregiver.name %></h1>
+<p><strong>Email:</strong> <%= @caregiver.email %></p>
+<p><strong>Phone:</strong> <%= @caregiver.phone %></p>
+
+<%= link_to 'Edit', edit_caregiver_path(@caregiver) %>
+<%= link_to 'Back', caregivers_path %>

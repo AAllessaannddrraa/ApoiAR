@@ -1,0 +1,56 @@
+.support-show {
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    .card-header {
+      background: linear-gradient(45deg, #007bff, #48cae4);
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      background-color: #f8f9fa;
+
+      p {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+
+        strong {
+          color: #0056b3;
+        }
+      }
+    }
+
+    .card-footer {
+      background-color: #e9f5ff;
+
+      .btn {
+        border-radius: 20px;
+
+        &.btn-primary {
+          background-color: #007bff;
+          border-color: #0056b3;
+
+          &:hover {
+            background-color: #0056b3;
+            border-color: #003f7f;
+          }
+        }
+
+        &.btn-secondary {
+          background-color: #6c757d;
+          border-color: #5a6268;
+
+          &:hover {
+            background-color: #5a6268;
+            border-color: #4e555b;
+          }
+        }
+      }
+    }
+  }
+}

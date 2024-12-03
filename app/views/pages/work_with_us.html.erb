@@ -1,0 +1,40 @@
+<div class="work-with-us-section">
+  <h1>Work With Us</h1>
+  <div class="benefits">
+    <h2>Benefits of Working at ApoiAR</h2>
+    <ul>
+      <li>Competitive salary</li>
+      <li>Flexible working hours</li>
+      <li>Professional development opportunities</li>
+      <li>Supportive work environment</li>
+    </ul>
+  </div>
+  <div class="application-form">
+    <h2>Application Form</h2>
+    <%= form_with url: '/submit_application', local: true, multipart: true do |form| %>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <div class="form-group">
+        <%= form.label :name %>
+        <%= form.text_field :name, class: 'form-control', required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :email %>
+        <%= form.email_field :email, class: 'form-control', required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :phone %>
+        <%= form.telephone_field :phone, class: 'form-control', required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :resume %>
+        <%= form.file_field :resume, class: 'form-control', required: true %>
+      </div>
+      <%= form.submit 'Submit', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+  <div class="links">
+    <a href="/" class="btn btn-primary">Home</a>
+    <a href="/about-us" class="btn btn-secondary">About Us</a>
+    <a href="/contact" class="btn btn-success">Contact</a>
+  </div>
+</div>

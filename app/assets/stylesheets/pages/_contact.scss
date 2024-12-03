@@ -1,0 +1,19 @@
+.contact-section {
+  padding: 2rem 0;
+
+  form {
+    background-color: $white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-control {
+    border-radius: 20px;
+  }
+
+  .btn-primary {
+    border-radius: 30px;
+    font-size: 1.1rem;
+  }
+}

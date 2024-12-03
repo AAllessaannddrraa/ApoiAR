@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #e3f2fd; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); border-bottom: 1px solid #d1e7ff;">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/" style="color: #0056b3; font-size: 1.5rem;">ApoiAR</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <!-- Links de navegação -->
+        <li class="nav-item">
+          <a class="btn btn-outline-primary nav-link px-3 py-1 me-2" href="/" style="border-radius: 20px;">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary nav-link px-3 py-1 me-2" href="/about-us" style="border-radius: 20px;">About Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary nav-link px-3 py-1 me-2" href="/work-with-us" style="border-radius: 20px;">Work With Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary nav-link px-3 py-1 me-2" href="/contact" style="border-radius: 20px;">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-primary nav-link px-3 py-1 me-2" href="/request-support" style="border-radius: 20px;">Request Support</a>
+        </li>
+
+        <!-- Condicional para login/logout -->
+        <% if user_signed_in? %>
+          <li>
+            <%= link_to "DASHBOARD", manager_dashboard_path %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-primary ms-3 px-4 py-1", style: "border-radius: 20px;" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "btn btn-primary ms-3 px-4 py-1", style: "border-radius: 20px;" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

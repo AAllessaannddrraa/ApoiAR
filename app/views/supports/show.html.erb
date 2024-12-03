@@ -1,0 +1,25 @@
+<!-- app/views/supports/show.html.erb -->
+<div class="container mt-5">
+  <div class="d-flex justify-content-center">
+    <div class="card shadow-sm" style="width: 50%;">
+      <div class="card-body">
+        <h1 class="card-title text-primary fw-bold text-center mb-4"><%= @caregiver.name %></h1>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <span class="fw-bold">Email:</span> <span class="text-muted"><%= @caregiver.email.presence || 'Not provided' %></span>
+          </li>
+          <li class="mb-2">
+            <span class="fw-bold">Phone:</span> <span class="text-muted"><%= @caregiver.phone.presence || 'Not provided' %></span>
+          </li>
+          <li>
+            <span class="fw-bold">Skills:</span> <span class="text-muted"><%= @caregiver.skills.map(&:name).join(', ').presence || 'Not provided' %></span>
+          </li>
+        </ul>
+        <div class="d-flex justify-content-between mt-4">
+          <%= link_to 'Edit', edit_caregiver_path(@caregiver), class: 'btn btn-outline-primary' %>
+          <%= link_to 'Back', caregivers_path, class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

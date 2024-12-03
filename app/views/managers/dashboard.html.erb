@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <h1 class="text-center text-primary fw-bold mb-4">Manager Dashboard</h1>
+  <p class="text-center text-muted">Bem-vindo ao dashboard do gestor.</p>
+
+  <div class="row">
+    <!-- Coluna de Supports -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white fw-bold">
+          Supports
+        </div>
+        <ul class="list-group list-group-flush">
+          <% @supports.each do |support| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= support.name %>
+              <%= link_to "Details", support_path(support), class: "btn btn-outline-primary btn-sm" %>
+              <%= link_to "Add Caregiver", new_support_caregiver_path(support_id: support.id), class: "btn btn-outline-secondary btn-sm ms-2" %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="card-footer text-center">
+          <%= link_to "Add New Support", new_support_path, class: "btn btn-primary px-4" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coluna de Caregivers -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white fw-bold">
+          Caregivers
+        </div>
+        <ul class="list-group list-group-flush">
+          <% @caregivers.each do |caregiver| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= caregiver.name %>
+              <%= link_to "Details", caregiver_path(caregiver), class: "btn btn-outline-primary btn-sm" %>
+            </li>
+          <% end %>
+        </ul>
+        <div class="card-footer text-center">
+          <%= link_to "Add New Caregiver", new_caregiver_path, class: "btn btn-primary px-4" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
