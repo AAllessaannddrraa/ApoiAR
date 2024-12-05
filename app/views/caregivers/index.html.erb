@@ -28,7 +28,7 @@
 
   <!-- Tabela de Todos os Cuidadores -->
   <h3 class="text-secondary mt-5">All Caregivers</h3>
-  <table class="table table-striped table-hover shadow-sm">
+  <table class="table table-striped table-hover shadow-sm" style="table-layout: fixed;width: 100%;">
     <thead class="table-primary text-center">
       <tr>
         <th>Name</th>
@@ -38,18 +38,18 @@
         <th>Actions</th>
       </tr>
     </thead>
-    <tbody>
+      <tbody>
       <% @caregivers.each do |caregiver| %>
         <tr style="height:100%">
-          <td><%= caregiver.name %></td>
-          <td><%= caregiver.email %></td>
-          <td><%= caregiver.phone %></td>
-          <td>
+          <td style="vertical-align: middle; height:100%"><%= caregiver.name %></td>
+          <td style="vertical-align: middle; height:100%"><%= caregiver.email %></td>
+          <td style="vertical-align: middle; height:100%"><%= caregiver.phone %></td>
+          <td style="vertical-align: middle; height:100%">
             <% caregiver.skills.each do |skill| %>
               <span class="badge bg-light text-dark border border-secondary"><%= skill.name %></span>
             <% end %>
           </td>
-          <td class="text-center d-flex">
+          <td style="vertical-align: middle; height:100%">
             <%= link_to caregiver_path(caregiver), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
               <i class="far fa-eye" style="font-size: 1.2rem;"></i>
             <% end %>
@@ -58,7 +58,8 @@
             <% end %>
             <%= link_to caregiver_path(caregiver), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none;" do %>
               <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
-            <% end %>          </td>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
