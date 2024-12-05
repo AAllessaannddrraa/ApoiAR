@@ -3,10 +3,15 @@ class SupportsController < ApplicationController
   before_action :set_collections, only: [:new, :edit, :create, :update]
 
   def index
-    @supports = Support.all
+    @supports = Support.includes(:caregiver).all
+
+    # Suportes sem cuidadores atribuídos
+    @supports_without_caregivers = @supports.select { |support| support.caregiver.nil? }
   end
 
   def show
+    @caregivers = Caregiver.all
+    @matches = @caregivers.map { |caregiver| { caregiver: caregiver, match: caregiver.matches_support?(@support) } }
   end
 
   def new
@@ -15,19 +20,19 @@ class SupportsController < ApplicationController
 
   def create
     @support = Support.new(support_params)
+    @support.user = current_user
     if @support.save
-      redirect_to @support, notice: 'Support was successfully created.'
+      redirect_to supports_path, notice: 'Support was successfully created.'
     else
       render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @support.update(support_params)
-      redirect_to @support, notice: 'Support was successfully updated.'
+      redirect_to supports_path, notice: 'Support was successfully updated.'
     else
       render :edit
     end

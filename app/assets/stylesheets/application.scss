@@ -12,15 +12,21 @@
 @import "pages/index";
 
 // Estilos globais e componentes compartilhados
-@import "custom"; // Estilos gerais
-@import "shared/navbar_footer"; // Estilos compartilhados da Navbar e Footer
+//@import "shared/navbar_footer"; // Estilos compartilhados da Navbar e Footer
 
 // Estilos específicos de páginas
 @import "pages/dashboard";
 @import "pages/home";
-@import "pages/about_us";
+@import "pages/custom";
 @import "pages/contact";
-@import "pages/work_with_us";
-@import "pages/request_support";
-@import "pages/support";
-@import "pages/caregiver";
+//@import "pages/work_with_us";
+//@import "pages/request_support";
+//@import "pages/support";
+//@import "pages/caregiver";
+
+
+.teste-class {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}

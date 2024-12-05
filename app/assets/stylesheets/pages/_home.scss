@@ -1,28 +1,33 @@
-// Specific CSS for your home-page
-
 .hero-section {
-  background: linear-gradient(45deg, lighten($blue, 20%), $blue);
-  color: $white;
-  padding: 4rem 2rem;
-  text-align: center;
-
+  background: linear-gradient(45deg, #48cae4, #0077b6);
+  color: #ffffff;
+  padding: 5rem 2rem;
   h1 {
     font-size: 3rem;
-    margin-bottom: 1rem;
+    font-weight: bold;
   }
-
   p {
     font-size: 1.25rem;
     margin-bottom: 2rem;
   }
-
-  .btn {
+  .cta-buttons .btn {
     font-size: 1.2rem;
-    padding: 0.75rem 1.5rem;
     border-radius: 30px;
+  }
+}
 
-    &:hover {
-      transform: scale(1.1);
+.gallery-section {
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .gallery-card {
+    img {
+      border-radius: 10px;
+    }
+    .card-body {
+      text-align: center;
     }
   }
 }
+

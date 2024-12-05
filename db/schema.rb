@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_03_164417) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_04_105335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "caregiver_equipments", force: :cascade do |t|
+    t.bigint "caregiver_id", null: false
+    t.bigint "equipment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["caregiver_id"], name: "index_caregiver_equipments_on_caregiver_id"
+    t.index ["equipment_id"], name: "index_caregiver_equipments_on_equipment_id"
+  end
 
   create_table "caregiver_skills", force: :cascade do |t|
     t.bigint "caregiver_id", null: false
@@ -30,7 +39,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_164417) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "phone"
-    t.integer "support_id"
   end
 
   create_table "equipment", force: :cascade do |t|
@@ -89,6 +97,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_03_164417) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "caregiver_equipments", "caregivers"
+  add_foreign_key "caregiver_equipments", "equipment"
   add_foreign_key "caregiver_skills", "caregivers"
   add_foreign_key "caregiver_skills", "skills"
   add_foreign_key "support_equipments", "equipment"

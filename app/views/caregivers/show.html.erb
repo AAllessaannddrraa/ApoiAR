@@ -1,6 +1,29 @@
-<h1><%= @caregiver.name %></h1>
-<p><strong>Email:</strong> <%= @caregiver.email %></p>
-<p><strong>Phone:</strong> <%= @caregiver.phone %></p>
+<div class="container my-5">
+  <div class="card shadow-lg mx-auto" style="max-width: 800px; border-radius: 15px;">
+    <div class="card-header text-white text-center" style="background-color: #4a90e2;">
+      <h2 class="mb-0"><%= @caregiver.name %></h2>
+    </div>
+    <div class="card-body">
+      <p><strong>Email:</strong> <%= @caregiver.email %></p>
+      <p><strong>Phone:</strong> <%= @caregiver.phone %></p>
 
-<%= link_to 'Edit', edit_caregiver_path(@caregiver) %>
-<%= link_to 'Back', caregivers_path %>
+      <h3 class="mt-4">Skills</h3>
+      <ul class="list-group">
+        <% @caregiver.skills.each do |skill| %>
+          <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> <%= skill.name %></li>
+        <% end %>
+      </ul>
+
+      <h3 class="mt-4">Equipment Expertise</h3>
+      <ul class="list-group">
+        <% @caregiver.equipments.each do |equipment| %>
+          <li class="list-group-item"><i class="fas fa-tools text-primary"></i> <%= equipment.name %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="card-footer text-center">
+      <%= link_to 'Edit Caregiver', edit_caregiver_path(@caregiver), class: 'btn btn-primary' %>
+      <%= link_to 'Back to List', caregivers_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

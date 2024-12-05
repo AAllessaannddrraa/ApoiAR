@@ -1,3 +1,59 @@
-<h1>New Caregiver</h1>
-<%= render 'form', caregiver: @caregiver, support: @support %>
-<%= link_to 'Back', support_path(@support) %>
+<div class="container my-5">
+  <% if user_signed_in? %>
+    <!-- Título para Gestor -->
+    <h1 class="text-primary fw-bold text-center mb-4">Add a New Caregiver</h1>
+  <% else %>
+    <!-- Benefícios para Aplicação Pública -->
+    <div class="text-center mb-5">
+      <h2 class="text-primary fw-bold">Benefits of Working at ApoiAR</h2>
+      <div class="row mt-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-dollar-sign text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Competitive Salary</h5>
+              <p class="text-muted">We value your hard work and ensure competitive compensation.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-clock text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Flexible Hours</h5>
+              <p class="text-muted">Enjoy a balance between work and personal life.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-graduation-cap text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Career Growth</h5>
+              <p class="text-muted">Access opportunities for professional development and training.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-heart text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Supportive Environment</h5>
+              <p class="text-muted">Be part of a team that cares about you and the community.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Formulário -->
+  <div class="card mx-auto shadow" style="max-width: 600px; border-radius: 15px;">
+    <div class="card-body">
+      <h2 class="text-primary fw-bold text-center mb-4">
+        <%= user_signed_in? ? "Caregiver Information" : "Join Our Team" %>
+      </h2>
+      <%= render 'form', caregiver: @caregiver, support: @support %>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 class Support < ApplicationRecord
+  belongs_to :user
   has_many :support_skills
   has_many :skills, through: :support_skills
   has_many :support_equipments

@@ -1,40 +1,64 @@
-<div class="work-with-us-section">
-  <h1>Work With Us</h1>
-  <div class="benefits">
-    <h2>Benefits of Working at ApoiAR</h2>
-    <ul>
-      <li>Competitive salary</li>
-      <li>Flexible working hours</li>
-      <li>Professional development opportunities</li>
-      <li>Supportive work environment</li>
-    </ul>
-  </div>
-  <div class="application-form">
-    <h2>Application Form</h2>
-    <%= form_with url: '/submit_application', local: true, multipart: true do |form| %>
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-      <div class="form-group">
-        <%= form.label :name %>
-        <%= form.text_field :name, class: 'form-control', required: true %>
+<div class="container my-5">
+  <% if user_signed_in? %>
+    <!-- Título para Gestor -->
+    <h1 class="text-primary fw-bold text-center mb-4">Add a New Caregiver</h1>
+  <% else %>
+    <!-- Benefícios para Aplicação Pública -->
+    <div class="text-center mb-5">
+      <h2 class="text-primary fw-bold">Benefits of Working at ApoiAR</h2>
+      <div class="row mt-4">
+        <!-- Card: Competitive Salary -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-dollar-sign text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Competitive Salary</h5>
+              <p class="text-muted">We value your hard work and ensure competitive compensation.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card: Flexible Hours -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-clock text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Flexible Hours</h5>
+              <p class="text-muted">Enjoy a balance between work and personal life.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card: Career Growth -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-graduation-cap text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Career Growth</h5>
+              <p class="text-muted">Access opportunities for professional development and training.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card: Supportive Environment -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card shadow-sm border-0">
+            <div class="card-body">
+              <i class="fas fa-heart text-primary display-4 mb-3"></i>
+              <h5 class="fw-bold">Supportive Environment</h5>
+              <p class="text-muted">Be part of a team that cares about you and the community.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <%= form.label :email %>
-        <%= form.email_field :email, class: 'form-control', required: true %>
-      </div>
-      <div class="form-group">
-        <%= form.label :phone %>
-        <%= form.telephone_field :phone, class: 'form-control', required: true %>
-      </div>
-      <div class="form-group">
-        <%= form.label :resume %>
-        <%= form.file_field :resume, class: 'form-control', required: true %>
-      </div>
-      <%= form.submit 'Submit', class: 'btn btn-primary' %>
-    <% end %>
-  </div>
-  <div class="links">
-    <a href="/" class="btn btn-primary">Home</a>
-    <a href="/about-us" class="btn btn-secondary">About Us</a>
-    <a href="/contact" class="btn btn-success">Contact</a>
+    </div>
+  <% end %>
+
+  <!-- Formulário -->
+  <div class="card mx-auto shadow" style="max-width: 600px; border-radius: 15px;">
+    <div class="card-body">
+      <!-- Título único baseado no contexto -->
+      <h2 class="text-primary fw-bold text-center mb-4">
+        <%= user_signed_in? ? "Caregiver Information" : "Join Our Team" %>
+      </h2>
+      <%= render 'form', caregiver: @caregiver, support: @support %>
+    </div>
   </div>
 </div>

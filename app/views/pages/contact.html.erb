@@ -1,20 +1,31 @@
-<!-- app/views/pages/contact.html.erb -->
-<div class="contact-section">
-  <h1>Contact Us</h1>
-  <form action="/send_contact" method="post">
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" class="form-control" required>
+<div class="container my-5">
+  <div class="card mx-auto shadow" style="max-width: 600px; border-radius: 15px;">
+    <div class="card-header text-white text-center" style="background-color: #4a90e2; border-radius: 15px 15px 0 0;">
+      <h2 class="fw-bold mb-0">Contact Us</h2>
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" class="form-control" required>
+    <div class="card-body p-4">
+      <form action="/send_contact" method="post">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+        <div class="form-group mb-3">
+          <label for="name" class="form-label fw-bold">Name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="email" class="form-label fw-bold">Email</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email address" required>
+        </div>
+
+        <div class="form-group mb-4">
+          <label for="message" class="form-label fw-bold">Message</label>
+          <textarea id="message" name="message" class="form-control" rows="5" placeholder="Write your message here" required></textarea>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary btn-lg">Send</button>
+        </div>
+      </form>
     </div>
-    <div class="form-group">
-      <label for="message">Message</label>
-      <textarea id="message" name="message" class="form-control" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Send</button>
-  </form>
+  </div>
 </div>

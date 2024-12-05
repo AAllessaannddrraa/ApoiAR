@@ -1,7 +1,7 @@
 <%= form_with(model: support, local: true) do |form| %>
   <% if support.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(support.errors.count, "error") %> prohibited this support from being saved:</h2>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(support.errors.count, "error") %> prohibited this support from being saved:</h4>
       <ul>
         <% support.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,44 +10,51 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
+  <div class="form-group mb-3">
+    <%= form.label :name, 'Support Name', class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control', placeholder: 'Enter support name', required: true %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :description %>
-    <%= form.text_area :description, class: 'form-control' %>
+  <div class="form-group mb-3">
+    <%= form.label :description, 'Description', class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control', placeholder: 'Provide a brief description', rows: 4, required: true %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :skills, "Required Skills" %>
-    <%= form.collection_check_boxes :skill_ids, @skills, :id, :name do |b| %>
-      <div class="checkbox">
-        <label>
-          <%= b.check_box %> <%= b.text %>
-        </label>
-      </div>
-    <% end %>
+  <div class="form-group mb-3">
+    <%= form.label :skills, 'Required Skills', class: 'form-label' %>
+    <div class="row">
+      <% @skills.each do |skill| %>
+        <div class="col-md-4">
+          <div class="form-check">
+            <%= form.check_box :skill_ids, { multiple: true, class: 'form-check-input' }, skill.id, nil %>
+            <%= form.label :skill_ids, skill.name, class: 'form-check-label' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :equipments, "Required Equipment" %>
-    <%= form.collection_check_boxes :equipment_ids, @equipments, :id, :name do |b| %>
-      <div class="checkbox">
-        <label>
-          <%= b.check_box %> <%= b.text %>
-        </label>
-      </div>
-    <% end %>
+  <div class="form-group mb-3">
+    <%= form.label :equipments, 'Required Equipment', class: 'form-label' %>
+    <div class="row">
+      <% @equipments.each do |equipment| %>
+        <div class="col-md-4">
+          <div class="form-check">
+            <%= form.check_box :equipment_ids, { multiple: true, class: 'form-check-input' }, equipment.id, nil %>
+            <%= form.label :equipment_ids, equipment.name, class: 'form-check-label' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :caregiver_id, "Assign Caregiver" %>
-    <%= form.collection_select :caregiver_id, @caregivers, :id, :name, { prompt: "Select a caregiver" }, { class: 'form-control' } %>
+  <div class="form-group mb-3">
+    <%= form.label :caregiver_id, 'Assign Caregiver (Optional)', class: 'form-label' %>
+    <% caregivers_sorted = @caregivers.sort_by { |caregiver| -(caregiver.skills & @skills).size } %>
+    <%= form.collection_select :caregiver_id, caregivers_sorted, :id, :name, { prompt: 'Select a caregiver' }, { class: 'form-select' } %>
   </div>
 
-  <div class="actions">
-    <%= form.submit 'Save', class: 'btn btn-primary' %>
+  <div class="text-center">
+    <%= form.submit 'Save Support', class: 'btn btn-primary' %>
   </div>
 <% end %>

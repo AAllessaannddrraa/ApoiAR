@@ -1,19 +1,31 @@
-<div class="request-support-section">
-  <h1>Request Support</h1>
-  <form action="/submit_support_request" method="post">
+<section class="container my-5">
+  <!-- Título Principal -->
+  <div class="text-center mb-5">
+    <h1 class="text-primary fw-bold">Request Support</h1>
+    <p class="text-muted">Let us know how we can assist you. We're here to help.</p>
+  </div>
+
+  <!-- Formulário de Solicitação -->
+  <form action="/submit_support_request" method="post" class="p-4 rounded shadow-sm" style="background-color: #f9f9f9;">
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" class="form-control" required>
+
+    <div class="form-group mb-4">
+      <label for="name" class="form-label fw-bold text-primary">Full Name</label>
+      <input type="text" id="name" name="name" class="form-control" placeholder="Enter your full name" required>
     </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" class="form-control" required>
+
+    <div class="form-group mb-4">
+      <label for="email" class="form-label fw-bold text-primary">Email Address</label>
+      <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
     </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea id="description" name="description" class="form-control" required></textarea>
+
+    <div class="form-group mb-4">
+      <label for="description" class="form-label fw-bold text-primary">Description</label>
+      <textarea id="description" name="description" class="form-control" rows="5" placeholder="Describe your support request" required></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 25px; padding: 10px 40px;">Submit</button>
+    </div>
   </form>
-</div>
+</section>

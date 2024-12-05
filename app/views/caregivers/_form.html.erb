@@ -1,42 +1,66 @@
-<%= form_with(model: caregiver, local: true) do |form| %>
-  <% if caregiver.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(caregiver.errors.count, "error") %> prohibited this caregiver from being saved:</h2>
-      <ul>
-        <% caregiver.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: 'form-control' %>
+<div class="card mx-auto shadow" style="max-width: 800px; border-radius: 15px;">
+  <div class="card-header text-white text-center" style="background-color: #4a90e2; border-radius: 15px 15px 0 0;">
+    <h2 class="fw-bold mb-0">Caregiver Information</h2>
   </div>
+  <div class="card-body p-4">
+    <%= form_with(model: caregiver, local: true) do |form| %>
+      <% if caregiver.errors.any? %>
+        <div class="alert alert-danger">
+          <h4><%= pluralize(caregiver.errors.count, "error") %> prevented this caregiver from being saved:</h4>
+          <ul>
+            <% caregiver.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div class="form-group">
-    <%= form.label :email %>
-    <%= form.email_field :email, class: 'form-control' %>
-  </div>
+      <div class="form-group mb-3">
+        <%= form.label :name, "Full Name", class: "form-label fw-bold" %>
+        <%= form.text_field :name, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :phone %>
-    <%= form.telephone_field :phone, class: 'form-control' %>
-  </div>
+      <div class="form-group mb-3">
+        <%= form.label :email, "Email Address", class: "form-label fw-bold" %>
+        <%= form.email_field :email, class: "form-control" %>
+      </div>
 
-  <div class="form-group">
-    <%= form.label :skills, "Skills" %>
-    <%= form.collection_check_boxes :skill_ids, @skills, :id, :name do |b| %>
-      <div class="checkbox">
-        <label>
-          <%= b.check_box %> <%= b.text %>
-        </label>
+      <div class="form-group mb-3">
+        <%= form.label :phone, "Phone Number", class: "form-label fw-bold" %>
+        <%= form.telephone_field :phone, class: "form-control" %>
+      </div>
+
+      <div class="form-group mb-4">
+        <%= form.label :skills, "Skills", class: "form-label fw-bold" %>
+        <div class="row">
+          <% @skills.each do |skill| %>
+            <div class="col-md-4 mb-2">
+              <div class="form-check">
+                <%= form.check_box :skill_ids, { multiple: true, class: "form-check-input" }, skill.id, nil %>
+                <%= form.label "skill_#{skill.id}", skill.name, class: "form-check-label" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group mb-4">
+        <%= form.label :equipments, "Equipment Expertise", class: "form-label fw-bold" %>
+        <div class="row">
+          <% @equipments.each do |equipment| %>
+            <div class="col-md-4 mb-2">
+              <div class="form-check">
+                <%= form.check_box :equipment_ids, { multiple: true, class: "form-check-input" }, equipment.id, nil %>
+                <%= form.label "equipment_#{equipment.id}", equipment.name, class: "form-check-label" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <%= form.submit 'Save Caregiver', class: "btn btn-primary btn-lg" %>
       </div>
     <% end %>
   </div>
-
-  <div class="actions">
-    <%= form.submit 'Save', class: 'btn btn-primary' %>
-  </div>
-<% end %>
+</div>

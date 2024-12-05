@@ -1,23 +1,70 @@
-<h1>Supports</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @supports.each do |support| %>
+<div class="container my-5">
+  <h1 class="text-center text-primary mb-4">Supports List</h1>
+
+  <!-- Lista de Supports sem cuidadores -->
+  <h3 class="text-secondary mb-3">Supports Without Caregivers</h3>
+  <% supports_without_caregivers = @supports.select { |s| s.caregiver.nil? } %>
+  <% if supports_without_caregivers.any? %>
+    <table class="table table-bordered table-hover mb-4">
+      <thead class="table-secondary text-center">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% supports_without_caregivers.each do |support| %>
+          <tr>
+            <td class="text-center"><%= support.name %></td>
+            <td class="text-center"><%= truncate(support.description, length: 50) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="text-muted">All supports have caregivers assigned.</p>
+  <% end %>
+
+  <!-- Lista Completa de Supports -->
+  <h3 class="text-secondary mb-3">All Supports</h3>
+  <table class="table table-striped table-hover">
+    <thead class="table-primary text-center">
       <tr>
-        <td><%= support.name %></td>
-        <td><%= support.description %></td>
-        <td><%= link_to 'Show', support %></td>
-        <td><%= link_to 'Edit', edit_support_path(support) %></td>
-        <td><%= link_to 'Destroy', support, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Caregiver</th>
+        <th>Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to 'New Support', new_support_path %>
-<%= link_to 'Back to Home', root_path, class: 'btn btn-secondary' %>
+    </thead>
+    <tbody>
+      <% @supports.each do |support| %>
+        <tr>
+          <td class="text-center"><%= support.name %></td>
+          <td class="text-center"><%= truncate(support.description, length: 50) %></td>
+          <td class="text-center">
+            <% if support.caregiver %>
+              <span class="badge bg-primary"><%= support.caregiver.name %></span>
+            <% else %>
+              <span class="badge bg-secondary">No caregiver assigned</span>
+            <% end %>
+          </td>
+          <td class="text-center">
+            <%= link_to support_path(support), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
+              <i class="far fa-eye" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <%= link_to edit_support_path(support), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
+              <i class="far fa-edit" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <%= link_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none;" do %>
+              <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="text-center mt-4">
+    <%= link_to 'Add New Support', new_support_path, class: 'btn btn-primary' %>
+  </div>
+</div>
