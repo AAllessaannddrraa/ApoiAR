@@ -56,6 +56,6 @@ class SupportsController < ApplicationController
   end
 
   def support_params
-    params.require(:support).permit(:name, :description, skill_ids: [], equipment_ids: [], caregiver_id: [])
+    params.require(:support).permit(:name,:caregiver_id, :description, skill_ids: [], equipment_ids: [])
   end
 end

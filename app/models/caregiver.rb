@@ -1,8 +1,9 @@
 class Caregiver < ApplicationRecord
-  has_many :caregiver_skills
+  has_many :caregiver_skills, dependent: :destroy
   has_many :skills, through: :caregiver_skills
-  has_many :caregiver_equipments, class_name: 'CaregiverEquipment'
+  has_many :caregiver_equipments, class_name: 'CaregiverEquipment', dependent: :destroy
   has_many :equipments, through: :caregiver_equipments
+  has_many :supports, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true

@@ -6,20 +6,47 @@
     <!-- Coluna de Supports -->
     <div class="col-md-6">
       <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white fw-bold">
+        <div class="card-header bg-light text-dark fw-bold">
           Supports
         </div>
-        <ul class="list-group list-group-flush">
-          <% @supports.each do |support| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <%= support.name %>
-              <%= link_to "Details", support_path(support), class: "btn btn-outline-primary btn-sm" %>
-              <%= link_to "Add Caregiver", new_support_caregiver_path(support_id: support.id), class: "btn btn-outline-secondary btn-sm ms-2" %>
-            </li>
-          <% end %>
-        </ul>
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @supports.each do |support| %>
+              <tr>
+                <td><%= support.name %></td>
+                <td><%= support.description %></td>
+                </td>
+          <td class="text-center">
+            <%= link_to support_path(support), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
+              <i class="far fa-eye" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <%= link_to edit_support_path(support), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
+              <i class="far fa-edit" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <a style="display: inline-block;">
+              <%= button_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none;  background: transparent;border: none;" do %>
+                <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+              <% end %>
+            </a>
+          </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
         <div class="card-footer text-center">
-          <%= link_to "Add New Support", new_support_path, class: "btn btn-primary px-4" %>
+          <%= link_to new_support_path, class: "text-primary", title: "Add New Support" do %>
+            <i class="fa fa-plus"></i> Add New Support
+          <% end %>
+        </div>
+        <div class="text-center mt-3">
+          <%= will_paginate @supports, param_name: :supports_page %>
         </div>
       </div>
     </div>
@@ -27,19 +54,49 @@
     <!-- Coluna de Caregivers -->
     <div class="col-md-6">
       <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white fw-bold">
+        <div class="card-header bg-light text-dark fw-bold">
           Caregivers
         </div>
-        <ul class="list-group list-group-flush">
-          <% @caregivers.each do |caregiver| %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <%= caregiver.name %>
-              <%= link_to "Details", caregiver_path(caregiver), class: "btn btn-outline-primary btn-sm" %>
-            </li>
-          <% end %>
-        </ul>
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @caregivers.each do |caregiver| %>
+              <tr>
+                <td><%= caregiver.name %></td>
+                <td><%= caregiver.email %></td>
+                <td><%= caregiver.phone %></td>
+                </td>
+          <td style="vertical-align: middle; height:100%">
+            <%= link_to caregiver_path(caregiver), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
+              <i class="far fa-eye" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <%= link_to edit_caregiver_path(caregiver), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
+              <i class="far fa-edit" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <a style="display: inline-block;">
+              <%= button_to caregiver_path(caregiver), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none;  background: transparent;border: none;" do %>
+                <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+              <% end %>
+            </a>
+          </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
         <div class="card-footer text-center">
-          <%= link_to "Add New Caregiver", new_caregiver_path, class: "btn btn-primary px-4" %>
+          <%= link_to new_caregiver_path, class: "text-primary", title: "Add New Caregiver" do %>
+            <i class="fa fa-plus"></i> Add New Caregiver
+          <% end %>
+        </div>
+        <div class="text-center mt-3">
+          <%= will_paginate @caregivers, param_name: :caregivers_page %>
         </div>
       </div>
     </div>

@@ -55,9 +55,11 @@
             <%= link_to edit_support_path(support), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
               <i class="far fa-edit" style="font-size: 1.2rem;"></i>
             <% end %>
-            <%= link_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none;" do %>
-              <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
-            <% end %>
+            <a style="display: inline-block;">
+              <%= button_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none; background: transparent; border: none;" do %>
+                <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+              <% end %>
+            </a>
           </td>
         </tr>
       <% end %>

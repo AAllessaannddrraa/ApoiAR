@@ -19,14 +19,64 @@
 @import "pages/home";
 @import "pages/custom";
 @import "pages/contact";
+@import "pages/dashboard";
+
 //@import "pages/work_with_us";
 //@import "pages/request_support";
 //@import "pages/support";
 //@import "pages/caregiver";
 
-
 .teste-class {
   height: 200px;
   width: 100%;
   object-fit: cover;
+}
+
+.container {
+  margin-top: 20px;
+
+  h1 {
+    font-size: 2.5rem;
+    color: #0056b3;
+  }
+
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    .card-header {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    .table {
+      font-size: 0.9rem;
+
+      th {
+        font-weight: bold;
+      }
+
+      tr:hover {
+        background-color: #f0f8ff;
+      }
+    }
+
+    .btn {
+      border-radius: 20px;
+      transition: all 0.3s;
+
+      &:hover {
+        color: white;
+      }
+
+      &-outline-primary:hover {
+        background-color: #0056b3;
+      }
+
+      &-outline-danger:hover {
+        background-color: #dc3545;
+      }
+    }
+  }
 }

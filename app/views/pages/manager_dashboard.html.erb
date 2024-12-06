@@ -1,50 +1,83 @@
-<!-- app/views/pages/manager_dashboard.html.erb -->
-<h1>Manager Dashboard</h1>
+<div class="container mt-5">
+  <h1 class="text-primary text-center mb-4 fw-bold">Manager Dashboard</h1>
 
-<h1>Supports</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @supports.each do |support| %>
-      <tr>
-        <td><%= support.name %></td>
-        <td><%= support.description %></td>
-        <td><%= link_to 'Show', manager_support_support_path(support) %></td>
-        <td><%= link_to 'Edit', edit_support_path(support) %></td>
-        <td><%= link_to 'Destroy', support, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to 'New Support', new_support_path %>
+  <!-- Supports Section -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+      <h2 class="h5 mb-0">Supports</h2>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @supports.each do |support| %>
+            <tr>
+              <td><%= support.name %></td>
+              <td><%= support.description %></td>
+              <td class="text-center">
+                <%= link_to 'Show', manager_support_support_path(support), class: 'btn btn-sm btn-outline-primary me-1' %>
+                <%= link_to 'Edit', edit_support_path(support), class: 'btn btn-sm btn-outline-secondary me-1' %>
+                <%= link_to 'Destroy', support, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-center">
+      <%= link_to 'New Support', new_support_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
 
-<h1>Caregivers</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Phone</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @caregivers.each do |caregiver| %>
-      <tr>
-        <td><%= caregiver.name %></td>
-        <td><%= caregiver.email %></td>
-        <td><%= caregiver.phone %></td>
-        <td><%= link_to 'Show', manager_caregiver_caregiver_path(caregiver) %></td>
-        <td><%= link_to 'Edit', edit_caregiver_path(caregiver) %></td>
-        <td><%= link_to 'Destroy', caregiver, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to 'New Caregiver', new_caregiver_path %>
+  <!-- Pagination for Supports -->
+  <div class="d-flex justify-content-center">
+    <%= will_paginate @supports %>
+  </div>
+
+  <!-- Caregivers Section -->
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h2 class="h5 mb-0">Caregivers</h2>
+    </div>
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @caregivers.each do |caregiver| %>
+            <tr>
+              <td><%= caregiver.name %></td>
+              <td><%= caregiver.email %></td>
+              <td><%= caregiver.phone %></td>
+              <td class="text-center">
+                <%= link_to 'Show', manager_caregiver_caregiver_path(caregiver), class: 'btn btn-sm btn-outline-primary me-1' %>
+                <%= link_to 'Edit', edit_caregiver_path(caregiver), class: 'btn btn-sm btn-outline-secondary me-1' %>
+                <%= link_to 'Destroy', caregiver, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer text-center">
+      <%= link_to 'New Caregiver', new_caregiver_path, class: 'btn btn-primary' %>
+    </div>
+  </div>
+
+  <!-- Pagination for Caregivers -->
+  <div class="d-flex justify-content-center">
+    <%= will_paginate @caregivers %>
+  </div>
+</div>

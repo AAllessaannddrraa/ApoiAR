@@ -39,7 +39,7 @@ class CaregiversController < ApplicationController
     @caregiver = Caregiver.new(caregiver_params)
     if @caregiver.save
       flash[:notice] = "Caregiver added successfully."
-      redirect_to caregivers_path
+      redirect_to dashboard_path
     else
       render :new
     end
