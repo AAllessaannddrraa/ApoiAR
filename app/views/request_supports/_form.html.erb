@@ -1,0 +1,28 @@
+<!-- app/views/request_supports/_form.html.erb -->
+<%= form_with(model: request_support, local: true) do |form| %>
+  <% if request_support.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(request_support.errors.count, "error") %> prohibited this request_support from being saved:</h2>
+
+      <ul>
+        <% request_support.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :requested_time %>
+    <%= form.datetime_select :requested_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :skills %>
+    <%= form.collection_check_boxes :skill_ids, Skill.all, :id, :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

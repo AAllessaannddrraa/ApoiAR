@@ -1,0 +1,41 @@
+<!-- app/views/request_supports/show.html.erb -->
+<h1>Request Support Details</h1>
+
+<p>
+  <strong>Requested Time:</strong>
+  <%= @request_support.requested_time %>
+</p>
+
+<p>
+  <strong>Skills:</strong>
+  <%= @request_support.skills.map(&:name).join(", ") %>
+</p>
+
+<p>
+  <strong>Equipments:</strong>
+  <%= @request_support.equipments.map(&:name).join(", ") %>
+</p>
+
+<h2>Caregivers Matching</h2>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Caregiver</th>
+      <th>Match Score</th>
+      <th>Missing Skills</th>
+      <th>Missing Equipments</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @matches.each do |match| %>
+      <tr class="<%= match[:match] ? 'table-success' : 'table-warning' %>">
+        <td><%= match[:caregiver].name %></td>
+        <td><%= (match[:score] * 100).round(2) %>%</td>
+        <td><%= match[:missing_skills].map(&:name).join(", ") %></td>
+        <td><%= match[:missing_equipments].map(&:name).join(", ") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', request_supports_path %>

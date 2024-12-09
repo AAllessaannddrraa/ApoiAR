@@ -21,9 +21,9 @@
               <td><%= support.name %></td>
               <td><%= support.description %></td>
               <td class="text-center">
-                <%= link_to 'Show', manager_support_support_path(support), class: 'btn btn-sm btn-outline-primary me-1' %>
+                <%= link_to 'Show', support_path(support), class: 'btn btn-sm btn-outline-primary me-1' %>
                 <%= link_to 'Edit', edit_support_path(support), class: 'btn btn-sm btn-outline-secondary me-1' %>
-                <%= link_to 'Destroy', support, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+                <%= button_to 'Destroy', support, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
               </td>
             </tr>
           <% end %>
@@ -37,7 +37,7 @@
 
   <!-- Pagination for Supports -->
   <div class="d-flex justify-content-center">
-    <%= will_paginate @supports %>
+    <%= will_paginate @supports, param_name: :supports_page %>
   </div>
 
   <!-- Caregivers Section -->
@@ -62,9 +62,9 @@
               <td><%= caregiver.email %></td>
               <td><%= caregiver.phone %></td>
               <td class="text-center">
-                <%= link_to 'Show', manager_caregiver_caregiver_path(caregiver), class: 'btn btn-sm btn-outline-primary me-1' %>
+                <%= link_to 'Show', caregiver_path(caregiver), class: 'btn btn-sm btn-outline-primary me-1' %>
                 <%= link_to 'Edit', edit_caregiver_path(caregiver), class: 'btn btn-sm btn-outline-secondary me-1' %>
-                <%= link_to 'Destroy', caregiver, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
+                <%= button_to 'Destroy', caregiver, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
               </td>
             </tr>
           <% end %>
@@ -78,6 +78,6 @@
 
   <!-- Pagination for Caregivers -->
   <div class="d-flex justify-content-center">
-    <%= will_paginate @caregivers %>
+    <%= will_paginate @caregivers, param_name: :caregivers_page %>
   </div>
 </div>

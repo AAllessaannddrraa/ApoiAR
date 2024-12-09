@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "/work-with-us", to: "pages#work_with_us"
   get "/contact", to: "pages#contact"
   get "/request-support", to: "pages#request_support"
-  get "/manager_dashboard", to: "managers#dashboard"
+  get "/manager_dashboard", to: "managers#dashboard", as: 'manager_dashboard'
 
   resources :supports do
     resources :caregivers, only: [:new, :create]
@@ -20,4 +20,6 @@ Rails.application.routes.draw do
       get :manager_caregiver
     end
   end
+
+  resources :request_supports
 end

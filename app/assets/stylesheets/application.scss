@@ -77,6 +77,13 @@
       &-outline-danger:hover {
         background-color: #dc3545;
       }
+      .match {
+        color: green;
+      }
+
+      .no-match {
+        color: red;
+      }
     }
   }
 }
