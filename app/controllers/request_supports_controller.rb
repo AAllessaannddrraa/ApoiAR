@@ -7,6 +7,17 @@ class RequestSupportsController < ApplicationController
   end
 
   def show
+    @caregivers = Caregiver.all
+    @matches = @caregivers.map do |caregiver|
+      match_data = caregiver.matches_support?(@request_support)
+      {
+        caregiver: caregiver,
+        match: match_data[:match],
+        missing_skills: match_data[:missing_skills],
+        missing_equipments: match_data[:missing_equipments],
+        score: caregiver.match_score(@request_support)
+      }
+    end.sort_by { |match| -match[:score] }
   end
 
   def new
@@ -45,6 +56,6 @@ class RequestSupportsController < ApplicationController
   end
 
   def request_support_params
-    params.require(:request_support).permit(:requested_time, skill_ids: [])
+    params.require(:request_support).permit(:requested_time, skill_ids: [], equipment_ids: [])
   end
 end

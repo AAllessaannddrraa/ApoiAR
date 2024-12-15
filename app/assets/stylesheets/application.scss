@@ -77,6 +77,7 @@
       &-outline-danger:hover {
         background-color: #dc3545;
       }
+
       .match {
         color: green;
       }
@@ -85,5 +86,266 @@
         color: red;
       }
     }
+  }
+}
+
+.table {
+  th {
+    background-color: #0056b3; // Azul principal
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+  }
+}
+
+.btn-outline-primary {
+  color: #0056b3;
+  border-color: #0056b3;
+
+  &:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
+
+  &:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+}
+
+.btn-outline-secondary {
+  color: #6c757d;
+  border-color: #6c757d;
+
+  &:hover {
+    background-color: #6c757d;
+    color: white;
+  }
+}
+
+.card {
+  border: 1px solid #0056b3;
+  border-radius: 10px;
+
+  .card-header {
+    background-color: #0056b3;
+    color: white;
+    font-weight: bold;
+  }
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.btn-lg {
+  padding: 10px 20px;
+  font-size: 1.25rem;
+}
+
+.list-group-item.bg-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.list-group-item.bg-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.list-group-item.bg-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+#score-display {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+#missing-info {
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.tooltip {
+  font-size: 0.8rem;
+}
+
+.list-group-item {
+  transition: all 0.3s ease-in-out;
+}
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+.badge.bg-primary {
+  font-size: 0.9rem;
+  padding: 0.5em;
+}
+.tooltip-inner {
+  max-width: 250px;
+  text-align: left;
+}
+.list-group-item.bg-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+.list-group-item.bg-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+.list-group-item.bg-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.matches-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.match-card {
+  flex: 1 1 calc(33.333% - 1rem);
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &.good-match {
+    border-left: 4px solid #198754; /* Verde */
+  }
+
+  &.average-match {
+    border-left: 4px solid #ffc107; /* Amarelo */
+  }
+
+  &.bad-match {
+    border-left: 4px solid #dc3545; /* Vermelho */
+  }
+
+  .match-header {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  .match-body {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+  }
+
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.view-all {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.drag-container, .drop-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.caregiver-card, .support-card {
+  border: 1px solid #0056b3;
+  border-radius: 10px;
+  padding: 15px;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.caregiver-card:hover, .support-card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.droppable {
+  border: 2px dashed #6c757d;
+  transition: border-color 0.3s;
+}
+
+.droppable.drag-over {
+  border-color: #0056b3;
+}
+
+.best-match {
+  border: 2px solid #28a745;
+}
+
+.modal-content {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+.me-3 {
+  margin-right: 1rem !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: center; // Centraliza os botões horizontalmente
+  align-items: center; // Alinha os botões na mesma linha verticalmente
+  gap: 1rem; // Espaçamento entre os botões
+}
+
+button, a {
+  margin: 0; // Remove qualquer margem extra
+  padding: 0.5rem 1rem; // Ajusta o preenchimento para uniformidade
+  text-align: center; // Centraliza o texto dentro do botão
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+
+  &:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+
+  &:hover {
+    background-color: #0056b3;
+    border-color: #004085;
   }
 }

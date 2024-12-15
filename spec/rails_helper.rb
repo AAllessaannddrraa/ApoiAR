@@ -68,3 +68,23 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+require 'rails_helper'
+
+RSpec.describe Caregiver, type: :model do
+  let(:caregiver) { create(:caregiver) }
+  let(:support) { create(:support) }
+
+  it "returns 0 score for nil support" do
+    expect(caregiver.match_score(nil)).to eq(0)
+  end
+
+  it "returns 0 score for support with no skills or equipments" do
+    support.update(skill_ids: [], equipment_ids: [])
+    expect(caregiver.match_score(support)).to eq(0)
+  end
+
+  it "calculates score correctly for matching skills and equipments" do
+    # Configure dados de teste...
+  end
+end

@@ -12,6 +12,7 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Best Match Caregiver</th>
             <th class="text-center">Actions</th>
           </tr>
         </thead>
@@ -19,12 +20,24 @@
           <% @supports.each do |support| %>
             <tr>
               <td><%= support.name %></td>
-              <td><%= support.description %></td>
-              <td class="text-center">
-                <%= link_to 'Show', support_path(support), class: 'btn btn-sm btn-outline-primary me-1' %>
-                <%= link_to 'Edit', edit_support_path(support), class: 'btn btn-sm btn-outline-secondary me-1' %>
-                <%= button_to 'Destroy', support, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
-              </td>
+              <td><%= truncate(support.description, length: 50) %></td>
+              <td>
+                <% best_match = support.best_match_caregiver %>
+                <%= best_match.present? ? best_match.name : "No compatible caregiver" %>
+               </td>
+          <td class="text-center">
+            <%= link_to support_path(support), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
+              <i class="far fa-eye" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <%= link_to edit_support_path(support), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
+              <i class="far fa-edit" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <a style="display: inline-block;">
+              <%= button_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none; background: transparent; border: none;" do %>
+                <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+              <% end %>
+            </a>
+          </td>
             </tr>
           <% end %>
         </tbody>
@@ -61,11 +74,20 @@
               <td><%= caregiver.name %></td>
               <td><%= caregiver.email %></td>
               <td><%= caregiver.phone %></td>
-              <td class="text-center">
-                <%= link_to 'Show', caregiver_path(caregiver), class: 'btn btn-sm btn-outline-primary me-1' %>
-                <%= link_to 'Edit', edit_caregiver_path(caregiver), class: 'btn btn-sm btn-outline-secondary me-1' %>
-                <%= button_to 'Destroy', caregiver, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %>
               </td>
+          <td style="vertical-align: middle; height:100%">
+            <%= link_to caregiver_path(caregiver), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
+              <i class="far fa-eye" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <%= link_to edit_caregiver_path(caregiver), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
+              <i class="far fa-edit" style="font-size: 1.2rem;"></i>
+            <% end %>
+            <a style="display: inline-block;">
+              <%= button_to caregiver_path(caregiver), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none;  background: transparent;border: none;" do %>
+                <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+              <% end %>
+            </a>
+          </td>
             </tr>
           <% end %>
         </tbody>

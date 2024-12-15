@@ -1,34 +1,29 @@
 <div class="container my-5">
   <div class="card shadow-lg mx-auto" style="max-width: 800px; border-radius: 15px;">
-    <div class="card-header text-white text-center" style="background-color: #4a90e2;">
-      <h2 class="mb-0"><%= @support.name %></h2>
+    <div class="card-header bg-primary text-white text-center">
+      <h2 class="fw-bold mb-0">Support Details</h2>
     </div>
     <div class="card-body">
-      <p><strong>Description:</strong> <%= @support.description %></p>
+      <h4><strong>Name:</strong> <%= @support.name %></h4>
+      <h4><strong>Description:</strong></h4>
+      <p><%= @support.description %></p>
 
-      <h3>Required Skills</h3>
+      <h4><strong>Required Skills:</strong></h4>
       <ul>
         <% @support.skills.each do |skill| %>
           <li><%= skill.name %></li>
         <% end %>
       </ul>
 
-      <h3>Required Equipment</h3>
+      <h4><strong>Required Equipments:</strong></h4>
       <ul>
         <% @support.equipments.each do |equipment| %>
           <li><%= equipment.name %></li>
         <% end %>
       </ul>
-
-      <h3>Assigned Caregiver</h3>
-      <% if @support.caregiver %>
-        <p><%= @support.caregiver.name %></p>
-      <% else %>
-        <p>No caregiver assigned</p>
-      <% end %>
     </div>
     <div class="card-footer text-center">
-      <%= link_to 'Edit Support', edit_support_path(@support), class: 'btn btn-primary' %>
+      <%= link_to 'Edit Support', edit_support_path(@support), class: 'btn btn-primary me-3' %>
       <%= link_to 'Back to List', supports_path, class: 'btn btn-secondary' %>
     </div>
   </div>

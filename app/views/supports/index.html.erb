@@ -39,27 +39,22 @@
     <tbody>
       <% @supports.each do |support| %>
         <tr>
-          <td class="text-center"><%= support.name %></td>
-          <td class="text-center"><%= truncate(support.description, length: 50) %></td>
-          <td class="text-center">
-            <% if support.caregiver %>
-              <span class="badge bg-primary"><%= support.caregiver.name %></span>
-            <% else %>
-              <span class="badge bg-secondary">No caregiver assigned</span>
-            <% end %>
+          <td><%= support.name %></td>
+          <td><%= truncate(support.description, length: 50) %></td>
+          <td>
+            <% best_match = support.best_match_caregiver %>
+            <%= best_match.present? ? best_match.name : "No compatible caregiver" %>
           </td>
-          <td class="text-center">
+          <td class="actions-container">
             <%= link_to support_path(support), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
               <i class="far fa-eye" style="font-size: 1.2rem;"></i>
             <% end %>
             <%= link_to edit_support_path(support), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
               <i class="far fa-edit" style="font-size: 1.2rem;"></i>
             <% end %>
-            <a style="display: inline-block;">
-              <%= button_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none; background: transparent; border: none;" do %>
-                <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
-              <% end %>
-            </a>
+            <%= button_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", style: "background: transparent; border: none;" do %>
+              <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
+            <% end %>
           </td>
         </tr>
       <% end %>

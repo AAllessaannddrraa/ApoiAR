@@ -1,9 +1,9 @@
-<%= form_with(model: support, local: true) do |form| %>
-  <% if support.errors.any? %>
+<%= form_with(model: @support, local: true) do |form| %>
+  <% if @support.errors.any? %>
     <div class="alert alert-danger">
-      <h4><%= pluralize(support.errors.count, "error") %> prohibited this support from being saved:</h4>
+      <h4><%= pluralize(@support.errors.count, "error") %> prohibited this support from being saved:</h4>
       <ul>
-        <% support.errors.full_messages.each do |message| %>
+        <% @support.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -21,40 +21,34 @@
   </div>
 
   <div class="form-group mb-3">
-    <%= form.label :skills, 'Required Skills', class: 'form-label' %>
-    <div class="row">
-      <% @skills.each do |skill| %>
-        <div class="col-md-4">
-          <div class="form-check">
-            <%= form.check_box :skill_ids, { multiple: true, class: 'form-check-input' }, skill.id, nil %>
-            <%= form.label :skill_ids, skill.name, class: 'form-check-label' %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= form.label :caregiver_id, "Caregiver", class: 'form-label' %>
+    <%= form.select :caregiver_id, options_for_select(
+      Caregiver.all.map do |caregiver|
+        match_data = caregiver.matches_support?(@support)
+        score = caregiver.match_score(@support)
+        color = match_data[:match] ? 'success' : (score > 0 ? 'warning' : 'danger')
+        ["#{caregiver.name} - Score: #{score}", caregiver.id, { class: "text-#{color}" }]
+      end.sort_by { |option| -option[1].to_f },
+      @support.caregiver_id
+    ), {}, class: 'form-select', data: { support_id: @support.id } %>
   </div>
 
   <div class="form-group mb-3">
-    <%= form.label :equipments, 'Required Equipment', class: 'form-label' %>
-    <div class="row">
-      <% @equipments.each do |equipment| %>
-        <div class="col-md-4">
-          <div class="form-check">
-            <%= form.check_box :equipment_ids, { multiple: true, class: 'form-check-input' }, equipment.id, nil %>
-            <%= form.label :equipment_ids, equipment.name, class: 'form-check-label' %>
-          </div>
-        </div>
-      <% end %>
-    </div>
+    <%= form.label :skills, "Skills", class: 'form-label' %>
+    <%= form.collection_select :skill_ids, @skills, :id, :name, {}, { multiple: true, class: 'form-control' } %>
   </div>
 
   <div class="form-group mb-3">
-    <%= form.label :caregiver_id, 'Assign Caregiver (Optional)', class: 'form-label' %>
-    <% caregivers_sorted = @caregivers.sort_by { |caregiver| -(caregiver.skills & @skills).size } %>
-    <%= form.collection_select :caregiver_id, caregivers_sorted, :id, :name, { prompt: 'Select a caregiver' }, { class: 'form-select' } %>
+    <%= form.label :equipments, "Equipments", class: 'form-label' %>
+    <%= form.collection_select :equipment_ids, @equipments, :id, :name, {}, { multiple: true, class: 'form-control' } %>
   </div>
 
-  <div class="text-center">
-    <%= form.submit 'Save Support', class: 'btn btn-primary' %>
+  <div class="mt-3">
+    <span id="score-display" class="badge bg-secondary">Score: 0</span>
+    <span id="missing-info" data-toggle="tooltip" title="No missing data" class="ms-2 text-muted">Hover for details</span>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

@@ -1,3 +1,7 @@
+body {
+    background-color: #f8f9fa;
+}
+
 .table {
   th {
     background-color: #0056b3; // Azul principal
@@ -42,12 +46,165 @@
 }
 
 .card {
-  border: 1px solid #0056b3;
-  border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    height: 100px; /* Altura inicial do card */
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s ease;
+    cursor: grab;
+    margin-bottom: 20px;
+    cursor: pointer;
 
-  .card-header {
-    background-color: #0056b3;
-    color: white;
+    &:hover .details {
+        display: block;
+    }
+
+    &.droppable {
+        border: 2px dashed #007bff;
+    }
+
+    &.dragging {
+        opacity: 0.5;
+    }
+}
+
+.card:hover {
+    height: auto; /* Expande para mostrar detalhes */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.card.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.card .details {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.card:hover .details {
+    display: block;
+    opacity: 1;
+}
+
+.card.droppable {
+    border: 2px dashed #007bff;
+}
+
+.highlight {
+    border: 2px dashed #007bff;
+}
+
+.match-percentage {
+    font-size: 1.2rem;
     font-weight: bold;
-  }
+    color: #28a745;
+    margin-top: 5px;
+}
+
+.droppable {
+    border: 2px dashed #007bff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.droppable.highlight {
+    background-color: #e0f7fa;
+}
+
+.percentage-badge {
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    padding: 0.5em 0.8em;
+    font-size: 1rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.details-button {
+    margin-top: 10px;
+}
+
+.tooltip-container {
+    display: none;
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.card:hover .tooltip-container {
+    display: block;
+}
+
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.floating-buttons button {
+    margin: 5px;
+}
+
+.progress-bar-container {
+    margin-top: 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 400px;
+    max-width: 90%;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+}
+
+.modal.active {
+    display: block;
+}
+
+.modal-header, .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.details {
+    display: none;
 }

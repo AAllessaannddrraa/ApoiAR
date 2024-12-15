@@ -1,102 +1,99 @@
 <div class="container mt-5">
-  <h1 class="text-center text-primary fw-bold mb-4">Manager Dashboard</h1>
-  <p class="text-center text-muted">Welcome to ApoiAR.</p>
+  <h1 class="text-primary text-center mb-4 fw-bold">Manager Dashboard</h1>
 
-  <div class="row">
-    <!-- Coluna de Supports -->
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-header bg-light text-dark fw-bold">
-          Supports
-        </div>
-        <table class="table table-hover mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @supports.each do |support| %>
-              <tr>
-                <td><%= support.name %></td>
-                <td><%= truncate(support.description, length: 50) %></td>
-                <td class="text-center">
-                  <%= link_to support_path(support), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
-                    <i class="far fa-eye" style="font-size: 1.2rem;"></i>
-                  <% end %>
-                  <%= link_to edit_support_path(support), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
-                    <i class="far fa-edit" style="font-size: 1.2rem;"></i>
-                  <% end %>
-                  <a style="display: inline-block;">
-                    <%= button_to support_path(support), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none; background: transparent; border: none;" do %>
-                      <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
-                    <% end %>
-                  </a>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="card-footer text-center">
-          <%= link_to new_support_path, class: "text-primary", title: "Add New Support" do %>
-            <i class="fa fa-plus"></i> Add New Support
-          <% end %>
-        </div>
-        <div class="text-center mt-3">
-          <%= will_paginate @supports, param_name: :supports_page %>
-        </div>
+  <div class="row mt-4">
+    <!-- Caregivers List -->
+    <div class="col-md-4">
+      <h4 class="text-primary">Caregivers</h4>
+      <div id="caregivers-list" class="drag-container">
+        <% @caregivers.each do |caregiver| %>
+          <div class="card caregiver-card" draggable="true" data-caregiver-id="<%= caregiver.id %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= caregiver.name %></h5>
+              <p class="card-text">Score: <%= caregiver.match_score(@current_support) %></p>
+              <% if caregiver.matches_support?(@current_support)[:missing_skills].any? %>
+                <p class="text-danger">Missing Skills: <%= caregiver.matches_support?(@current_support)[:missing_skills].map(&:name).join(', ') %></p>
+              <% end %>
+              <% if caregiver.matches_support?(@current_support)[:missing_equipments].any? %>
+                <p class="text-danger">Missing Equipments: <%= caregiver.matches_support?(@current_support)[:missing_equipments].map(&:name).join(', ') %></p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
 
-    <!-- Coluna de Caregivers -->
-    <div class="col-md-6">
-      <div class="card shadow-sm">
-        <div class="card-header bg-light text-dark fw-bold">
-          Caregivers
-        </div>
-        <table class="table table-hover mb-0">
-          <thead class="table-light">
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th class="text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @caregivers.each do |caregiver| %>
-              <tr>
-                <td><%= caregiver.name %></td>
-                <td><%= caregiver.email %></td>
-                <td><%= caregiver.phone %></td>
-                <td class="text-center">
-                  <%= link_to caregiver_path(caregiver), class: "text-primary me-3", title: "Show", style: "text-decoration: none;" do %>
-                    <i class="far fa-eye" style="font-size: 1.2rem;"></i>
-                  <% end %>
-                  <%= link_to edit_caregiver_path(caregiver), class: "text-primary me-3", title: "Edit", style: "text-decoration: none;" do %>
-                    <i class="far fa-edit" style="font-size: 1.2rem;"></i>
-                  <% end %>
-                  <a style="display: inline-block;">
-                    <%= button_to caregiver_path(caregiver), method: :delete, data: { confirm: "Are you sure?" }, class: "text-primary", title: "Destroy", style: "text-decoration: none; background: transparent; border: none;" do %>
-                      <i class="far fa-trash-alt" style="font-size: 1.2rem;"></i>
-                    <% end %>
-                  </a>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-        <div class="card-footer text-center">
-          <%= link_to new_caregiver_path, class: "text-primary", title: "Add New Caregiver" do %>
-            <i class="fa fa-plus"></i> Add New Caregiver
-          <% end %>
-        </div>
-        <div class="text-center mt-3">
-          <%= will_paginate @caregivers, param_name: :caregivers_page %>
-        </div>
+    <!-- Supports List -->
+    <div class="col-md-8">
+      <h4 class="text-primary">Supports</h4>
+      <div id="supports-list" class="drop-container">
+        <% @supports.each do |support| %>
+          <div class="card support-card droppable" data-id="<%= support.id %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= support.name %></h5>
+              <p class="card-text"><%= truncate(support.description, length: 50) %></p>
+              <div id="assigned-caregiver-<%= support.id %>">
+                <% if support.caregiver %>
+                  <span class="badge bg-success">Assigned: <%= support.caregiver.name %></span>
+                <% else %>
+                  <span class="badge bg-danger">No caregiver assigned</span>
+                <% end %>
+              </div>
+              <div class="text-center mt-2">
+                <%= button_to 'View Matches', '#', class: "btn btn-outline-info btn-sm", data: { toggle: 'modal', target: "#matchesModal#{support.id}" } %>
+                <%= link_to 'Edit', edit_support_path(support), class: "btn btn-outline-primary btn-sm" %>
+                <%= button_to 'Delete', support_path(support), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Matches Modal -->
+<% @supports.each do |support| %>
+  <div class="modal fade" id="matchesModal<%= support.id %>" tabindex="-1" aria-labelledby="matchesModalLabel<%= support.id %>" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="matchesModalLabel<%= support.id %>">Matches for <%= support.name %></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="matches-container-<%= support.id %>">
+            <% matches = Caregiver.all.map do |caregiver|
+                 match_data = caregiver.matches_support?(support)
+                 {
+                   caregiver: caregiver,
+                   match: match_data[:match],
+                   score: caregiver.match_score(support),
+                   missing_skills: match_data[:missing_skills],
+                   missing_equipments: match_data[:missing_equipments]
+                 }
+               end.sort_by { |match| -match[:score] } %>
+            <% matches.each do |match| %>
+              <div class="card match-card <%= match[:score] >= 8 ? 'best-match' : '' %>">
+                <div class="card-body">
+                  <h5 class="card-title text-primary"><%= match[:caregiver].name %></h5>
+                  <p>Compatibilidade: <%= match[:score] %>/10</p>
+                  <%= form_with url: manager_dashboard_path, method: :post, local: true do |f| %>
+                    <%= hidden_field_tag :caregiver_id, match[:caregiver].id %>
+                    <%= hidden_field_tag :support_id, support.id %>
+                    <%= f.submit "Atribuir", class: "btn btn-success btn-sm" %>
+                  <% end %>
+                  <% if match[:missing_skills].any? || match[:missing_equipments].any? %>
+                    <span class="text-warning" data-bs-toggle="tooltip" title="Skills faltantes: <%= match[:missing_skills].join(', ') %>">
+                      ℹ️
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
